@@ -16,6 +16,14 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "paths": {
+      "ngx-flip-flip": [
+        "dist/ngx-flip-flip"
+      ],
+      "ngx-flip-flip/*": [
+        "dist/ngx-flip-flip/*"
+      ]
+    }
   }
 }
