@@ -129,6 +129,41 @@
           }
         }
       }
+    },
+    "ngx-flip-flip": {
+      "root": "projects/ngx-flip-flip",
+      "sourceRoot": "projects/ngx-flip-flip/src",
+      "projectType": "library",
+      "prefix": "ngx-flip-flip",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/ngx-flip-flip/tsconfig.lib.json",
+            "project": "projects/ngx-flip-flip/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/ngx-flip-flip/src/test.ts",
+            "tsConfig": "projects/ngx-flip-flip/tsconfig.spec.json",
+            "karmaConfig": "projects/ngx-flip-flip/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/ngx-flip-flip/tsconfig.lib.json",
+              "projects/ngx-flip-flip/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
     }
   },
   "defaultProject": "angular-flip-flip"
