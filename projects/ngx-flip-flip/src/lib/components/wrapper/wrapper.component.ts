@@ -74,5 +74,6 @@ export class NgxFlipFlipWrapper implements OnInit, OnDestroy {
   private addStyles() {
     this.renderer.setStyle(this.elementRef.nativeElement, 'transition', `transform ${this.options.scrollingSpeed}ms ${this.options.easing}`);
     this.renderer.setStyle(document.body, 'margin', 0);
+    this.renderer.setStyle(document.body, 'overflow', 'hidden');
   }
 }
