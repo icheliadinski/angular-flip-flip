@@ -33,7 +33,7 @@ export class NgxFlipFlipWrapper implements OnInit, OnDestroy {
 
   ngOnInit() {
     window.addEventListener('wheel', this.disableWheel);
-    this.slidesService.slides = document.querySelectorAll('ngx-move-slide');
+    this.slidesService.slides = document.querySelectorAll('ngx-flip-flip-slide');
     this.slidesService.selectedId = 0;
     this.eventsService.fitToSectionDelay = this.options.fitToSectionDelay + this.options.scrollingSpeed;
 
