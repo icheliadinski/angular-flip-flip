@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Renderer2, ElementRef, Input, NgZone } from '@angular/core';
+import { Component, OnInit, OnDestroy, Renderer2, ElementRef, Input, DoCheck, NgZone } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { NgxFlipFlipSlidesService } from '../../services/slides.service';
 import { NgxFlipFlipEventsService } from '../../services/events.service';
@@ -13,7 +13,7 @@ import { NgxFlipFlipOptions } from '../../models/options.model';
     }
   `],
 })
-export class NgxFlipFlipWrapper implements OnInit, OnDestroy {
+export class NgxFlipFlipWrapper implements OnInit, DoCheck, OnDestroy {
   @Input() options: NgxFlipFlipOptions = {
     scrollingSpeed: 700,
     easing: 'ease',
@@ -32,6 +32,10 @@ export class NgxFlipFlipWrapper implements OnInit, OnDestroy {
     private _zone: NgZone,
   ) {}
 
+  ngDoCheck() {
+    console.log('change detector');
+  }
+
   ngOnInit() {
     this._zone.runOutsideAngular(() => window.addEventListener('wheel', this.disableWheel));
     this.slidesService.slides = document.querySelectorAll('ngx-flip-flip-slide');
@@ -40,18 +44,24 @@ export class NgxFlipFlipWrapper implements OnInit, OnDestroy {
 
     this._zone.runOutsideAngular(() => {
       this._resizeSubscription = this.eventsService.onResize().subscribe(() => {
-        this.changeSlidesDimensions();
-        this.moveTo(-window.innerHeight * this.slidesService.selectedId);
+        this._zone.run(() => {
+          this.changeSlidesDimensions();
+          this.changeSlide();
+        });
       });
       this._onNextSubscription = this.eventsService.onNextSlide().subscribe(() => {
-        this.slidesService.selectedId++;
-        this.changeSlide();
+        this._zone.run(() => {
+          this.slidesService.selectedId++;
+          this.changeSlide();
+        });
       });
       this._onPrevSubscription = this.eventsService.onPrevSlide().subscribe(() => {
-        this.slidesService.selectedId--;
-        this.changeSlide();
+        this._zone.run(() => {
+          this.slidesService.selectedId--;
+          this.changeSlide();
+        });
       });
-    })
+    });
 
     this.addStyles();
   }
