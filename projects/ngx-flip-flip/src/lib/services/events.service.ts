@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, fromEvent } from 'rxjs';
-import { filter, throttleTime, tap, map, pairwise } from 'rxjs/operators';
+import { filter, throttleTime, tap, map, pairwise, share } from 'rxjs/operators';
 import { NgxFlipFlipSlidesService } from './slides.service';
 import { Direction } from '../models/direction.enum';
 
@@ -34,7 +34,8 @@ export class NgxFlipFlipEventsService {
     return fromEvent(window, 'wheel')
       .pipe(
         throttleTime(this.fitToSectionDelay),
-        map((e: WheelEvent) => e.deltaY < 0 ? Direction.Up : Direction.Down)
+        map((e: WheelEvent) => e.deltaY < 0 ? Direction.Up : Direction.Down),
+        share()
       );
   }
 }
