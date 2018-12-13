@@ -3,6 +3,7 @@ import { Subscription } from 'rxjs';
 import { NgxFlipFlipSlidesService } from '../../services/slides.service';
 import { NgxFlipFlipEventsService } from '../../services/events.service';
 import { NgxFlipFlipOptions } from '../../models/options.model';
+import { Direction } from '../../models/direction.enum';
 
 @Component({
   selector: 'ngx-flip-flip-wrapper',
@@ -41,8 +42,14 @@ export class NgxFlipFlipWrapper implements OnInit, OnDestroy {
       this.changeSlidesDimensions();
       this.moveTo(-window.innerHeight * this.slidesService.selectedId);
     });
-    this._onNextSubscription = this.eventsService.onNextSlide().subscribe(() => this.changeSlide());
-    this._onPrevSubscription = this.eventsService.onPrevSlide().subscribe(() => this.changeSlide());
+    this._onNextSubscription = this.eventsService.onNextSlide().subscribe(() => {
+      this.slidesService.selectedId++;
+      this.changeSlide();
+    });
+    this._onPrevSubscription = this.eventsService.onPrevSlide().subscribe(() => {
+      this.slidesService.selectedId--;
+      this.changeSlide();
+    });
 
     this.addStyles();
   }

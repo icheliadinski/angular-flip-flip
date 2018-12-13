@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Observable, fromEvent } from 'rxjs';
-import { filter, throttleTime, tap, map } from 'rxjs/operators';
+import { filter, throttleTime, tap, map, pairwise } from 'rxjs/operators';
 import { NgxFlipFlipSlidesService } from './slides.service';
+import { Direction } from '../models/direction.enum';
 
 @Injectable()
 export class NgxFlipFlipEventsService {
@@ -11,19 +12,17 @@ export class NgxFlipFlipEventsService {
     private slidesService: NgxFlipFlipSlidesService,
   ) {}
 
-  onNextSlide(): Observable<number> {
+  onNextSlide(): Observable<Direction> {
     return this.onScroll()
       .pipe(
-        filter((e: WheelEvent) => e.deltaY > 0 && !this.slidesService.isTheLastSlide()),
-        map(() => this.slidesService.selectedId++)
+        filter(direction => direction === Direction.Down && !this.slidesService.isTheLastSlide())
       );
   }
 
-  onPrevSlide(): Observable<number> {
+  onPrevSlide(): Observable<Direction> {
     return this.onScroll()
       .pipe(
-        filter((e: WheelEvent) => e.deltaY < 0 && !this.slidesService.isTheFirstSlide()),
-        map(() => this.slidesService.selectedId--)
+        filter(direction => direction === Direction.Up && !this.slidesService.isTheFirstSlide())
       );
   }
 
@@ -31,10 +30,11 @@ export class NgxFlipFlipEventsService {
     return fromEvent(window, 'resize');
   }
 
-  private onScroll(): Observable<Event> {
+  private onScroll(): Observable<Direction> {
     return fromEvent(window, 'wheel')
       .pipe(
-        throttleTime(this.fitToSectionDelay)
+        throttleTime(this.fitToSectionDelay),
+        map((e: WheelEvent) => e.deltaY < 0 ? Direction.Up : Direction.Down)
       );
   }
 }
