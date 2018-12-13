@@ -1,9 +1,8 @@
-import { Component, OnInit, OnDestroy, Renderer2, ElementRef, Input } from '@angular/core';
+import { Component, OnInit, OnDestroy, Renderer2, ElementRef, Input, NgZone } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { NgxFlipFlipSlidesService } from '../../services/slides.service';
 import { NgxFlipFlipEventsService } from '../../services/events.service';
 import { NgxFlipFlipOptions } from '../../models/options.model';
-import { Direction } from '../../models/direction.enum';
 
 @Component({
   selector: 'ngx-flip-flip-wrapper',
@@ -30,26 +29,29 @@ export class NgxFlipFlipWrapper implements OnInit, OnDestroy {
     private elementRef: ElementRef,
     private slidesService: NgxFlipFlipSlidesService,
     private eventsService: NgxFlipFlipEventsService,
+    private _zone: NgZone,
   ) {}
 
   ngOnInit() {
-    window.addEventListener('wheel', this.disableWheel);
+    this._zone.runOutsideAngular(() => window.addEventListener('wheel', this.disableWheel));
     this.slidesService.slides = document.querySelectorAll('ngx-flip-flip-slide');
     this.slidesService.selectedId = 0;
     this.eventsService.fitToSectionDelay = this.options.fitToSectionDelay + this.options.scrollingSpeed;
 
-    this._resizeSubscription = this.eventsService.onResize().subscribe(() => {
-      this.changeSlidesDimensions();
-      this.moveTo(-window.innerHeight * this.slidesService.selectedId);
-    });
-    this._onNextSubscription = this.eventsService.onNextSlide().subscribe(() => {
-      this.slidesService.selectedId++;
-      this.changeSlide();
-    });
-    this._onPrevSubscription = this.eventsService.onPrevSlide().subscribe(() => {
-      this.slidesService.selectedId--;
-      this.changeSlide();
-    });
+    this._zone.runOutsideAngular(() => {
+      this._resizeSubscription = this.eventsService.onResize().subscribe(() => {
+        this.changeSlidesDimensions();
+        this.moveTo(-window.innerHeight * this.slidesService.selectedId);
+      });
+      this._onNextSubscription = this.eventsService.onNextSlide().subscribe(() => {
+        this.slidesService.selectedId++;
+        this.changeSlide();
+      });
+      this._onPrevSubscription = this.eventsService.onPrevSlide().subscribe(() => {
+        this.slidesService.selectedId--;
+        this.changeSlide();
+      });
+    })
 
     this.addStyles();
   }
