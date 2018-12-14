@@ -9,6 +9,6 @@ export class AppComponent {
   title = 'angular-flip-flip';
 
   onSlideChange() {
-    console.log('scroll up');
+    console.log('scroll');
   }
 }
