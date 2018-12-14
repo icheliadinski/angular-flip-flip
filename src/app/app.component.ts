@@ -7,4 +7,8 @@ import { Component, DoCheck } from '@angular/core';
 })
 export class AppComponent {
   title = 'angular-flip-flip';
+
+  onSlideChange() {
+    console.log('scroll up');
+  }
 }
