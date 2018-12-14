@@ -12,30 +12,23 @@ export class NgxFlipFlipEventsService {
     private slidesService: NgxFlipFlipSlidesService,
   ) {}
 
-  onNextSlide(): Observable<Direction> {
-    return this.onScroll()
-      .pipe(
-        filter(direction => direction === Direction.Down && !this.slidesService.isTheLastSlide())
-      );
-  }
-
-  onPrevSlide(): Observable<Direction> {
-    return this.onScroll()
-      .pipe(
-        filter(direction => direction === Direction.Up && !this.slidesService.isTheFirstSlide())
-      );
-  }
-
-  onResize(): Observable<Event> {
+  onResize$(): Observable<Event> {
     return fromEvent(window, 'resize');
   }
 
-  private onScroll(): Observable<Direction> {
+  onScroll$(): Observable<Direction> {
     return fromEvent(window, 'wheel')
       .pipe(
         throttleTime(this.fitToSectionDelay),
         map((e: WheelEvent) => e.deltaY < 0 ? Direction.Up : Direction.Down),
+        filter(direction => this.filterOnScroll(direction)),
         share()
       );
+  }
+
+  private filterOnScroll(direction: Direction): boolean {
+    return direction === Direction.Up
+      ? !this.slidesService.isTheFirstSlide()
+      : !this.slidesService.isTheLastSlide();
   }
 }
