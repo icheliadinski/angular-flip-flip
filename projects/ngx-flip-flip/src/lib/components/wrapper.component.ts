@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, Renderer2, ElementRef, Input, NgZone, Output, EventEmitter } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Subscription, fromEvent } from 'rxjs';
 import { NgxFlipFlipSlidesService } from '../services/slides.service';
 import { NgxFlipFlipEventsService } from '../services/events.service';
 import { NgxFlipFlipOptions } from '../models/options.model';
@@ -63,6 +63,7 @@ export class NgxFlipFlipWrapper implements OnInit, OnDestroy {
 
     });
 
+    this.changeSlidesDimensions();
     this.addStyles();
   }
 
@@ -73,7 +74,10 @@ export class NgxFlipFlipWrapper implements OnInit, OnDestroy {
   }
 
   private changeSlidesDimensions = () => {
-    this.slidesService.slides.forEach(slide => this.renderer.setStyle(slide, 'height', `${window.innerHeight}px`));
+    this.slidesService.slides.forEach((slide, index) => {
+      this.renderer.setStyle(slide, 'height', `${window.innerHeight}px`);
+      this.renderer.setStyle(slide, 'top', `${window.innerHeight * index}px`);
+    });
   }
 
   private changeSlide() {

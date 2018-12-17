@@ -1,17 +1,17 @@
 import { Injectable } from '@angular/core';
 import { Observable, fromEvent } from 'rxjs';
-import { filter, throttleTime, map, share, merge } from 'rxjs/operators';
+import { filter, throttleTime, map, share, merge, pairwise } from 'rxjs/operators';
 import { NgxFlipFlipSlidesService } from './slides.service';
 import { Direction } from '../models/direction.enum';
 import { KeyboardEnum } from '../models/keyboard.enum';
 
 @Injectable()
 export class NgxFlipFlipEventsService {
-  fitToSectionDelay;
-  isArrowNavigationActive;
+  fitToSectionDelay: number;
+  isArrowNavigationActive: boolean;
 
   constructor(
-    private slidesService: NgxFlipFlipSlidesService,
+    private slidesService: NgxFlipFlipSlidesService
   ) {}
 
   onResize$(): Observable<Event> {
@@ -19,9 +19,10 @@ export class NgxFlipFlipEventsService {
   }
 
   onSlideChange$(): Observable<Direction> {
-    return this.onScroll$()
+    return this.onWheel$()
       .pipe(
-        merge(this.onKeyPress$())
+        merge(this.onKeyPress$()),
+        merge(this.onScroll$())
       )
       .pipe(
         throttleTime(this.fitToSectionDelay),
@@ -30,7 +31,7 @@ export class NgxFlipFlipEventsService {
       );
   }
 
-  private onScroll$() {
+  private onWheel$() {
     return fromEvent(window, 'wheel').pipe(
       map((e: WheelEvent) => e.deltaY < 0 ? Direction.Up : Direction.Down)
     );
@@ -39,7 +40,16 @@ export class NgxFlipFlipEventsService {
   private onKeyPress$() {
     return fromEvent(window, 'keydown').pipe(
       filter(() => this.isArrowNavigationActive),
+      filter((e: KeyboardEvent) => e.key === KeyboardEnum.ArrowUp || e.key === KeyboardEnum.ArrowDown),
       map((e: KeyboardEvent) => e.key === KeyboardEnum.ArrowUp ? Direction.Up : Direction.Down)
+    );
+  }
+
+  private onScroll$() {
+    return fromEvent(window, 'scroll').pipe(
+      map((e: TouchEvent) => window.pageYOffset),
+      pairwise(),
+      map(([y1, y2]): Direction => y2 < y1 ? Direction.Up : Direction.Down)
     );
   }
 
