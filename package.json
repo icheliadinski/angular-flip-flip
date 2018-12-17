@@ -1,6 +1,6 @@
 {
   "name": "angular-flip-flip",
-  "version": "0.0.0",
+  "version": "0.0.1-beta.4",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
