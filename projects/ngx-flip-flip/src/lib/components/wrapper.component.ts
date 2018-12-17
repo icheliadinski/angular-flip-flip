@@ -48,7 +48,6 @@ export class NgxFlipFlipWrapper implements OnInit, OnDestroy {
 
       this._onScrollSubscription = this.eventsService.onSlideChange$().subscribe(direction => {
         this._zone.run(() => {
-          console.log('slide change');
           this.slidesService.selectedId = this.getSelectedSlideId(direction);
           this.changeSlide();
           this.onSlideChange.emit(direction);
