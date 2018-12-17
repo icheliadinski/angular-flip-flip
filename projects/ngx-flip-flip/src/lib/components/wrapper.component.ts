@@ -20,6 +20,7 @@ export class NgxFlipFlipWrapper implements OnInit, OnDestroy {
     easing: 'ease',
     fitToSectionDelay: 500,
     startFromSlide: 0,
+    keyboardScrolling: true,
   };
   @Output() onSlideChange = new EventEmitter<Direction>();
 
@@ -38,14 +39,16 @@ export class NgxFlipFlipWrapper implements OnInit, OnDestroy {
     this.slidesService.slides = document.querySelectorAll('ngx-flip-flip-slide');
 
     this.eventsService.fitToSectionDelay = this.options.fitToSectionDelay + this.options.scrollingSpeed;
+    this.eventsService.isArrowNavigationActive = this.options.keyboardScrolling;
     this.slidesService.selectedId = this.options.startFromSlide;
     this.changeSlide();
 
     this._zone.runOutsideAngular(() => window.addEventListener('wheel', this.disableWheel));
     this._zone.runOutsideAngular(() => {
 
-      this._onScrollSubscription = this.eventsService.onScroll$().subscribe(direction => {
+      this._onScrollSubscription = this.eventsService.onSlideChange$().subscribe(direction => {
         this._zone.run(() => {
+          console.log('slide change');
           this.slidesService.selectedId = this.getSelectedSlideId(direction);
           this.changeSlide();
           this.onSlideChange.emit(direction);
