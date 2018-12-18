@@ -2,6 +2,10 @@
 
 Angular Flip Flip - Angular full page scrolling components with no dependencies
 
+---
+[Demo](http://ngx-flip-flip.icheliadinski.info/)
+---
+
 ## Installation
 
 NPM:
