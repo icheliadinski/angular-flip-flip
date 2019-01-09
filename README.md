@@ -42,5 +42,5 @@ import { Component } from '@angular/core';
     </ngx-flip-flip-wrapper>
   `,
 })
-export class SampleComponent implements OnInit {}
+export class SampleComponent {}
 ```
