@@ -4059,7 +4059,7 @@ istanbul@0.4.5:
     which "^1.1.1"
     wordwrap "^1.0.0"
 
-jasmine-core@^3.3:
+jasmine-core@^3.3, jasmine-core@~3.4.0:
   version "3.4.0"
   resolved "https://registry.yarnpkg.com/jasmine-core/-/jasmine-core-3.4.0.tgz#2a74618e966026530c3518f03e9f845d26473ce3"
   integrity sha512-HU/YxV4i6GcmiH4duATwAbJQMlE0MsDIR5XmSVxURxKHn3aGAdbY1/ZJFmVRbKtnLwIxxMJD7gYaPsypcbYimg==
@@ -4068,11 +4068,6 @@ jasmine-core@~2.8.0:
   version "2.8.0"
   resolved "https://registry.yarnpkg.com/jasmine-core/-/jasmine-core-2.8.0.tgz#bcc979ae1f9fd05701e45e52e65d3a5d63f1a24e"
   integrity sha1-vMl5rh+f0FcB5F5S5l06XWPxok4=
-
-jasmine-core@~3.4.0:
-  version "3.4.0"
-  resolved "https://registry.yarnpkg.com/jasmine-core/-/jasmine-core-3.4.0.tgz#2a74618e966026530c3518f03e9f845d26473ce3"
-  integrity sha512-HU/YxV4i6GcmiH4duATwAbJQMlE0MsDIR5XmSVxURxKHn3aGAdbY1/ZJFmVRbKtnLwIxxMJD7gYaPsypcbYimg==
 
 jasmine-spec-reporter@~4.2.1:
   version "4.2.1"
@@ -7405,10 +7400,10 @@ ts-node@~7.0.0:
     source-map-support "^0.5.6"
     yn "^2.0.0"
 
-tsickle@>=0.29.0:
-  version "0.34.0"
-  resolved "https://registry.yarnpkg.com/tsickle/-/tsickle-0.34.0.tgz#10187fa6401a288a65efb93a60bf28b2ff95f90b"
-  integrity sha512-O3wCPRtL18Hc/ZBnaiKwmmjVzeCWTOTpsi0btfC7FWL3RnXpxLPxD6hoJ0QEXuSfG/0QJk+MWNjqT9N6fOyyIg==
+tsickle@>=0.34.2:
+  version "0.34.2"
+  resolved "https://registry.yarnpkg.com/tsickle/-/tsickle-0.34.2.tgz#cc06c5de19c9e639d7a7fd69c4c57253e52fa858"
+  integrity sha512-dQnEfBdVb9AUFr/27zC2C1fs1FVPUek+GoCvTS34ZbgEwV/RwS8dGZPiGx6bV+nlDlpIgTwLJHuHhj7kPdbDsg==
   dependencies:
     minimist "^1.2.0"
     mkdirp "^0.5.1"
