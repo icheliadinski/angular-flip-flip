@@ -78,3 +78,26 @@ export class SampleComponent {
   }
 }
 ```
+
+On slide change event
+
+```typescript
+import { Component } from '@angular/core';
+import { NgxFlipFlipOptions, Direction } from 'ngx-flip-flip'
+
+@Component({
+  // ...
+  template: `
+    <ngx-flip-flip-wrapper (onSlideChane)="handleSlideChange($event)">
+      <ngx-flip-flip-slide>1</ngx-flip-flip-slide>
+      <ngx-flip-flip-slide>2</ngx-flip-flip-slide>
+      // ...
+    </ngx-flip-flip-wrapper>
+  `,
+})
+export class SampleComponent {
+  handleSlideChange(direction: Direction) {
+    // do some stuff
+  }
+}
+```
