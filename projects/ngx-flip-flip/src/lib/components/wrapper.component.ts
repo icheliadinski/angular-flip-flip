@@ -1,7 +1,9 @@
 import { Component, OnInit, OnDestroy, Renderer2, ElementRef, Input, NgZone, Output, EventEmitter } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { NgxFlipFlipSlidesService, NgxFlipFlipEventsService } from '../services';
-import { NgxFlipFlipOptions, Direction } from '../models';
+import { NgxFlipFlipEventsService } from '../services/events.service';
+import { NgxFlipFlipSlidesService } from '../services/slides.service';
+import { Direction } from '../models/direction.enum';
+import { NgxFlipFlipOptions } from '../models/options.model';
 
 @Component({
   selector: 'ngx-flip-flip-wrapper',
