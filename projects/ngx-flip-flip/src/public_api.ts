@@ -3,4 +3,5 @@
  */
 
 export * from './lib/ngx-flip-flip.module';
-export { NgxFlipFlipOptions, Direction } from './lib/models';
+export { Direction } from './lib/models/direction.enum';
+export { NgxFlipFlipOptions } from './lib/models/options.model';
