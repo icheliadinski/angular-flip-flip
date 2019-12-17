@@ -5,6 +5,7 @@ import { NgxFlipFlipSlidesService } from './services/slides.service';
 import { NgxFlipFlipEventsService } from './services/events.service';
 import { NgxFlipFlipWrapper } from './components/wrapper.component';
 import { NgxFlipFlipSlide } from './components/slide.component';
+import { NgxFlipFlipOptions } from './models/options.model';
 
 @NgModule({
   declarations: [

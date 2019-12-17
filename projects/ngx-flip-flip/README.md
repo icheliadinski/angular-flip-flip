@@ -10,7 +10,7 @@ Angular Flip Flip - Angular full page scrolling components with no dependencies
 ## Installation
 
 NPM:
-`npm i ngx-flip-flip`
+`npm i ngx-flip-flip --save`
 
 Yarn:
 `yarn add ngx-flip-flip`
@@ -47,5 +47,34 @@ import { Component } from '@angular/core';
     </ngx-flip-flip-wrapper>
   `,
 })
-export class SampleComponent implements OnInit {}
+export class SampleComponent {}
+```
+
+## Options
+
+Change options
+
+```typescript
+import { Component } from '@angular/core';
+import { NgxFlipFlipOptions } from 'ngx-flip-flip'
+
+@Component({
+  // ...
+  template: `
+    <ngx-flip-flip-wrapper [options]="options">
+      <ngx-flip-flip-slide>1</ngx-flip-flip-slide>
+      <ngx-flip-flip-slide>2</ngx-flip-flip-slide>
+      // ...
+    </ngx-flip-flip-wrapper>
+  `,
+})
+export class SampleComponent {
+  options: NgxFlipFlipOptions = {
+    scrollingSpeed:    300, // Scrolling speed - number
+    fitToSectionDelay: 300, // Fit to section delay - number
+    easing:            'linear', // animation type. One of 'linear' | 'ease' | 'ease-in' | 'ease-out' | 'ease-in-out' | 'step-start' | 'step-end'
+    startFromSlide:    1, // start from this slide - number
+    keyboardScrolling: false // should keyboard scrolling work - boolean
+  }
+}
 ```
