@@ -1,11 +1,8 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { NgxFlipFlipSlidesService } from './services/slides.service';
-import { NgxFlipFlipEventsService } from './services/events.service';
-import { NgxFlipFlipWrapper } from './components/wrapper.component';
-import { NgxFlipFlipSlide } from './components/slide.component';
-import { NgxFlipFlipOptions } from './models/options.model';
+import { NgxFlipFlipSlidesService, NgxFlipFlipEventsService } from './services';
+import { NgxFlipFlipWrapper, NgxFlipFlipSlide } from './components';
 
 @NgModule({
   declarations: [
