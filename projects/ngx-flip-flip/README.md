@@ -70,11 +70,34 @@ import { NgxFlipFlipOptions } from 'ngx-flip-flip'
 })
 export class SampleComponent {
   options: NgxFlipFlipOptions = {
-    scrollingSpeed:    300, // Scrolling speed - number
-    fitToSectionDelay: 300, // Fit to section delay - number
+    scrollingSpeed:    300,      // Scrolling speed - number
+    fitToSectionDelay: 300,      // Fit to section delay - number
     easing:            'linear', // animation type. One of 'linear' | 'ease' | 'ease-in' | 'ease-out' | 'ease-in-out' | 'step-start' | 'step-end'
-    startFromSlide:    1, // start from this slide - number
-    keyboardScrolling: false // should keyboard scrolling work - boolean
+    startFromSlide:    1,        // start from this slide - number
+    keyboardScrolling: false     // should keyboard scrolling work - boolean
+  }
+}
+```
+
+On slide change event
+
+```typescript
+import { Component } from '@angular/core';
+import { NgxFlipFlipOptions, Direction } from 'ngx-flip-flip'
+
+@Component({
+  // ...
+  template: `
+    <ngx-flip-flip-wrapper (onSlideChane)="handleSlideChange($event)">
+      <ngx-flip-flip-slide>1</ngx-flip-flip-slide>
+      <ngx-flip-flip-slide>2</ngx-flip-flip-slide>
+      // ...
+    </ngx-flip-flip-wrapper>
+  `,
+})
+export class SampleComponent {
+  handleSlideChange(direction: Direction) {
+    // do some stuff
   }
 }
 ```
