@@ -1,10 +1,11 @@
 {
   "name": "ngx-flip-flip",
-  "version": "0.0.1-beta.7",
+  "version": "0.0.1-beta.8",
   "repository": {
     "type": "git",
     "url": "https://github.com/igorexec/angular-flip-flip.git"
   },
+  "homepage": "https://ngx-flip-flip.netlify.com",
   "keywords": [
     "angular",
     "fullpage",
