@@ -7,7 +7,11 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "build-lib": "ng build ngx-flip-flip",
+    "patch": "npm version patch --prefix ./projects/ngx-flip-flip/",
+    "publish": "npm publish --prefix ./build/ngx-flip-flip/",
+    "deploy": "npm run patch && npm run build-lib && npm run publish"
   },
   "private": true,
   "dependencies": {
