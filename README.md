@@ -2,7 +2,8 @@
 
 Angular Flip Flip - Angular full page scrolling components with no dependencies
 
-[![NPM version][npm-version-image]][npm-url]
+[![npm version](https://badge.fury.io/js/ngx-flip-flip.svg)](https://badge.fury.io/js/ngx-flip-flip)
+[![Github Downloads (total)](https://img.shields.io/github/downloads/igorexec/angular-flip-flip/total.svg)]()
 
 ---
 [Demo](https://ngx-flip-flip.netlify.com/)
